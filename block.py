@@ -27,6 +27,11 @@ class Block(object):
     def __str__(self):
         return "Block<prev_hash: %s, hash: %s>" % (self.prev_hash, self.hash)
         
+    def create_self_hash(self):
+        sha = hashlib.sha256()
+        sha.update(self.header_string())
+        return sha.hexdigest()
+
 def create_first_block():
     # index zero and arbitratry previous hash
     block_data = {}
@@ -36,6 +41,8 @@ def create_first_block():
     block_data['data'] = 'First block data'
     block = Block(block_data)
     return block
+
+
 
 #check if chaindata folder exists
 chaindata_dir = 'chaindata'
